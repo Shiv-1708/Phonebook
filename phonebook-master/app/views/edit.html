@@ -1,0 +1,168 @@
+<!-- Note input elements have both name and id values. name is the identifier that is sent to the server on form submit.
+     The id is a unique identifier for the browser for javascript manipulation -->
+<h2>Edit Contact</h2>
+
+<form name="contactForm" novalidate> <!-- Disable HTML5 validation, we'll use Angular -->
+
+   <!-- First Name -->
+   <div class="form-group" ng-class="{ 'has-error' : contactForm.firstname.$invalid && !contactForm.firstname.$pristine }">
+      <!-- control-label: Bootstrap includes validation styles for error, warning, and success states on form controls. -->
+      <!-- label for="" enables touch on the label as well as the control -->
+      <label for="firstname" class="control-label col-md-2">First Name:</label> <!-- note Bootstrap formatting/responsive design -->
+      <div class="col-md-10">                                                                                  <!-- Note focus and required -->
+         <input type="text" name="firstname" id="firstname" ng-model="contact.firstname" class="form-control" placeholder="First name" focus required>
+         <!-- Display an error message if this field is blank and had a value. We don't show this on first load of the add screen -->
+         <p ng-show="contactForm.firstname.$invalid && !contactForm.firstname.$pristine" class="help-block">First name is required.</p>
+      </div>
+   </div>
+
+   <!-- Last Name -->
+   <div class="form-group" ng-class="{ 'has-error' : contactForm.lastname.$invalid && !contactForm.lastname.$pristine }">
+      <label class="control-label col-md-2" for="lastname">Last Name:</label>
+      <div class="col-md-10">                                                                              <!-- Note required -->
+         <input type="text" name="lastname" id="lastname" ng-model="contact.lastname" class="form-control" placeholder="Last name" required>
+         <p ng-show="contactForm.lastname.$invalid && !contactForm.lastname.$pristine" class="help-block">Last name is required.</p>
+      </div>
+   </div>
+
+
+   <div class="panel"> <!-- Begin Tab panel -->
+      <ul id="myTab" class="nav nav-tabs">
+         <li class="active"><a href="#address" data-toggle="tab" target="_blank">Address</a></li>
+         <li><a href="#contactinfo" data-toggle="tab" target="_blank">Contact Info</a></li>
+         <li><a href="#personal" data-toggle="tab" target="_blank">Personal</a></li>
+      </ul>
+
+      <div id="myTabContent" class="tab-content"> <!-- Begin my tab content. -->
+
+         <div class="tab-pane fade in active" id="address">
+
+            <div class="form-group">
+               <label class="control-label col-md-2" for="street">Street:</label>
+               <div class="col-md-10">
+                  <input type="text" ng-model="contact.address.street" class="form-control" id="street">
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="control-label col-md-2" for="city">City:</label>
+               <div class="col-md-10">
+                  <input type="text" ng-model="contact.address.city" class="form-control" id="city">
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="control-label col-md-2" for="state">State:</label>
+               <div class="col-md-10">
+                  <input type="text" ng-model="contact.address.state" class="form-control" id="state">   <!-- TODO - Convert to dropdown -->
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="control-label col-md-2" for="zip">Zip:</label>
+               <div class="col-md-10">
+                  <input type="text" ng-model="contact.address.zip" class="form-control" id="zip">
+               </div>
+            </div>
+
+         </div>
+
+
+         <div class="tab-pane fade" id="contactinfo">
+
+            <div class="form-group">
+            <label class="control-label col-md-2" for="phoneNumbers">Phone numbers:</label>
+
+            <!--Phone-->
+            <div id="phoneNumbers" ng-controller="PhonenumberCtrl" class="col-md-10">        <!-- note nested Angular controller -->
+               <div ng-repeat="phonenumber in contact.phonenumbers">                         <!-- note Angular ng-repeat -->
+                  <input type="text" placeholder="type"   ng-model="phonenumber.type"   >    <!-- TODO - Convert to dropdown -->
+                  <input type="tel"  placeholder="number" ng-model="phonenumber.number" >
+                  <button type="button" class="btn btn-xs btn-danger" ng-click="removeNumber($index)"> <!-- note Bootstrap formatting -->
+                     <span class="glyphicon glyphicon-minus"> Delete</span>                  <!-- note Bootstrap images-->
+                  </button>
+               </div>
+               <button type="button" class="btn btn-xs btn-success" ng-click="addNumber()">  <!-- note Bootstrap formatting -->
+                  <span class="glyphicon glyphicon-plus"> Add</span>                         <!-- note Bootstrap images -->
+               </button>
+            </div>
+         </div>
+
+            <!-- eMail -->
+            <div class="form-group" ng-class="{ 'has-error' : contactForm.emailaddress.$invalid && !contactForm.emailaddress.$pristine }">
+            <label class="control-label col-md-2" for="phoneNumbers">Email Accounts:</label>
+
+            <div id="eMail" ng-controller="EmailCtrl" class="col-md-10">
+               <div ng-repeat="e in contact.email">
+                  <input type="text" placeholder="type"    ng-model="e.type"   >             <!-- TODO - Convert to dropdown -->
+                  <input type="email" name="emailaddress"  placeholder="account" ng-model="e.account" >
+                  <p ng-show="contactForm.emailaddress.$invalid && !contactForm.emailaddress.$pristine" class="help-block">Enter a valid email.</p>
+
+                  <button type="button" class="btn btn-xs btn-danger" ng-click="removeEmail($index)">
+                     <span class="glyphicon glyphicon-minus"> Delete</span>
+                  </button>
+               </div>
+               <button type="button" class="btn btn-xs btn-success" ng-click="addEmail()">
+                  <span class="glyphicon glyphicon-plus"> Add</span>
+               </button>
+            </div>
+         </div>
+         </div>
+
+         <div class="tab-pane fade" id="personal">
+
+            <!-- Birthday -->
+            <div class="form-group">
+            <label class="control-label col-md-2" for="birthday">Birthday:</label>
+            <div class="col-md-10">
+               <input type="date" ng-model="contact.birthday" class="form-control" id="birthday">
+            </div>
+         </div>
+
+            <!-- Spouse -->
+            <div class="form-group">
+            <label class="control-label col-md-2" for="spouse">Spouse:</label>
+            <div class="col-md-10">
+               <input type="text" ng-model="contact.spouse" class="form-control" id="spouse">
+            </div>
+         </div>
+
+            <!-- Children -->
+            <div class="form-group">
+            <label class="control-label col-md-2" for="children">Children:</label>
+
+            <div id="children" ng-controller="ChildrenCtrl" class="col-md-10">
+               <div ng-repeat="c in contact.children">
+                  <input type="text" placeholder="sex"  ng-model="c.sex"   >    <!-- TODO - Convert to dropdown or radio buttons -->
+                  <input type="tel"  placeholder="name" ng-model="c.name" >
+                  <button type="button" class="btn btn-xs btn-danger" ng-click="removeChild($index)">
+                     <span class="glyphicon glyphicon-minus"> Delete</span>
+                  </button>
+               </div>
+               <button type="button" class="btn btn-xs btn-success" ng-click="addChild()">
+                  <span class="glyphicon glyphicon-plus"> Add</span>
+               </button>
+            </div>
+         </div>
+         </div>
+
+         <!--
+         tab notes
+            <textarea ui-tinymce ng-model="contact.notes"></textarea>
+         -->
+      </div>
+   </div>
+
+
+   <div>
+      <!--
+         Only show when updating. The _id property is created by mongo when saving. If it's present then we're updating.
+         If the forms state is invalid, button displays grayed out.
+         Note the save() function for Save and Add are in different controllers.
+      -->
+      <span ng-show="contact._id">
+         <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="contactForm.$invalid">Save</button>
+      </span>
+      <span ng-hide="contact._id">
+         <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="contactForm.$invalid">Add</button>
+      </span>
+      <button type="button" class="btn btn-danger" ng-click="remove()" ng-show="contact._id">Delete</button>
+   </div>
+</form>

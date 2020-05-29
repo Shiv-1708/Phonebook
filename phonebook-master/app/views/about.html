@@ -1,0 +1,62 @@
+<!-- Note use of Bootstrap jumbotron -->
+<div class="jumbotron">
+   <img src="Phonebook.png" class="pull-right">
+   <h2>Phonebook/Contact Manager</h2>
+   <p>This is a learning and training example application. It is a phonebook/contact manager
+      that implements the basic CRUD elements of business/data applications.</p>
+</div>
+
+This uses a simple data model and process flow. This gets the model and use case out of the way
+so we can concentrate on basic CRUD features in a new technology, language or environment.
+<p>This project is an example of the following technologies:</p>
+<ul>
+   <li>HTML5, CSS3 and JS5</li>
+   <li>AngularJS - Client application framework</li>
+   <li>Bootstrap - Client application user interface goodies</li>
+   <li>NodeJS - RESTful Web Service</li>
+   <li>MongoDB - Server data storage</li>
+   <li>Responsive Design via Bootstrap</li>
+   <li>Date/Time manipulation via momentjs (date formatting, age calculation)</li>
+   <li>Mapping with Google Maps</li>
+   <li>Angular goodies</li>
+   <ul>
+      <li>Grid - ngGrid (sorting, search)</li>
+      <li>Bootstrap directives - ui.bootstrap</li>
+      <ul>
+         <li>Tabs</li>
+      </ul>
+      <li>Custom directives - Phone formatting</li>
+      <li>Sub controllers</li>
+      <li>Form/Field validation with error formatting & messages (required fields, email formatting)</li>
+   </ul>
+   <li>Future</li>
+   <ul>
+      <li>Local property storage with LocalStorage</li>
+      <li>Local data storage with IndexedDB</li>
+      <li>Native (hybrid) compilation via Cordova</li>
+      <li>HTML5
+         <ul>
+            <li>Application Cache</li>
+            <li>Datalist (state picklist)</li>
+         </ul>
+      </li>
+   </ul>
+</ul>
+The project source and documentation is publicly available for free on
+<a href="https://github.com/jshea/phonebook-angular">github</a>.
+<br>Your feedback is appreciated.
+
+<div class="tab-pane fade" id="charts"> <!-- Begin tab pane fade. -->
+   <div class="row">
+      <div class="col-md-5">
+         <h4><span class="label label-primary">Weekly Work Hours Distribution</span></h4>
+         <br>
+         <canvas barchart data="weeklyHoursChart" width="300" height="300"></canvas>
+      </div>
+      <div class="col-md-5">
+         <h4><span class="label label-primary">Accruals</span></h4>
+         <br>
+         <canvas piechart data="accrualsChart" width="250" height="250"></canvas>
+      </div>
+   </div>
+</div> <!-- End tab pane fade. -->

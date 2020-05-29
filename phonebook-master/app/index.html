@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="phonebook">  <!-- manifest="phonebook.appcache"> -->
+
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="mobile-web-app-capable" content="yes">           <!-- Allow saving a link to mobile device home screen -->
+
+   <link href="phonebook.196.png" rel="icon" sizes="196x196">   <!-- Icon for link to mobile device home screen -->
+   <title>Phonebook/Contact Manager</title>                     <!-- Also used for mobile device home screen link title -->
+
+   <!-- Load the JS libraries and our files that are required for the main screen to load -->
+   <script src="lib/jquery.js"></script>                 <!-- Angular will use jquery if available (otherwise builtin jqLite) -->
+
+   <script src="lib/angular.js"></script>
+   <script src="lib/angular-route.js"></script>
+   <script src="lib/localforage.js"></script>
+
+   <link href="css/bootstrap.css" rel="stylesheet">         <!-- Bootstrap is used for the UI -->
+   <link href="css/phonebook.css" rel="stylesheet">
+
+   <link  href="css/angular-snap.css" rel="stylesheet">
+   <script src="lib/snap.js"></script>
+   <script src="lib/angular-snap.js"></script>
+
+   <script src="lib/toaster.js"></script>
+   <link href="css/toaster.css" rel="stylesheet">
+   <script src="lib/angular-animate.js"></script>
+
+</head>
+
+<body>
+
+   <snap-drawer>
+      <p><button class="btn btn-primary" snap-close>Close</button></p>
+
+      Tools/Libraries used in this app
+      <ul>
+         <li><a href="https://angularjs.org/">Angular</a></li>
+         <li><a href="https://docs.angularjs.org/guide/animations">Angular animate</a></li>
+         <li><a href="https://docs.angularjs.org/tutorial/step_07">Angular route</a></li>
+         <li><a href="http://angular-ui.github.io/bootstrap/">Angular bootstrap</a></li>
+         <li><a href="https://github.com/jtrussell/angular-snap.js">Angular snap/snap</a></li>
+         <li><a href="https://github.com/jirikavi/AngularJS-Toaster">AngularJS Toaster</a></li>
+         <li><a href="http://angular-ui.github.io/ng-grid/">ngGrid</a></li>
+         <li><a href="http://getbootstrap.com/">Bootstrap</a></li>
+         <li><a href="http://jquery.com/">jQuery</a></li>
+         <li><a href="http://momentjs.com/">Moment</a></li>
+         <li><a href="http://underscorejs.org/">Underscore</a></li>
+      </ul>
+   </snap-drawer>
+
+   <snap-content>
+      <div class="container-fluid"> <!-- Bootstrap centering-->
+         <header>
+
+            <nav class="navbar navbar-default" role="navigation">
+               <!-- Brand and toggle get grouped for better mobile display -->
+               <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                     <span class="sr-only">Toggle navigation</span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">Phonebook/Contact Manager</a>
+               </div>
+
+               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                     <li id="menu-list"><a href="/#/">List</a></li>
+                     <li id="menu-new"><a href="/#/new">New Contact</a></li>
+                     <li id="menu-loaddata"><a href="/#/load">Load Data</a></li>
+                     <li id="menu-metrics"><a href="/#/metrics">Metrics</a></li>
+                     <li id="menu-about"><a href="/#/about">About</a></li>
+                     <li id="menu-snap" snap-toggle="left">Menu</li>
+                  </ul>
+               </div>
+            </nav>
+         </header>
+
+         <div butterbar>Loading...</div>  <!-- Note use of a loading display - from O'Reilly angular book -->
+
+         <toaster-container toaster-options = "{'time-out': 3000}"></toaster-container> <!-- Placeholder for our status messages (contact saved/added/deleted) -->
+
+         <div class="row">
+            <div class="col-md-10">
+               <ng-view></ng-view>     <!-- This is where Angular will swap in our templates -->
+            </div>
+         </div>
+
+      </div>
+   </snap-content>
+
+   <!--
+      Load all other JS files at the end. This way they are not blocking the initial startup. It makes
+      the application appear to run faster.
+   -->
+   <script src="lib/bootstrap.js"></script>   <!-- Bootstrap requires jquery -->
+
+   <script src="lib/ng-grid.js"></script>
+   <link href="css/ng-grid.css" rel="stylesheet">
+
+   <script src="lib/moment.js"></script>
+
+   <script src="lib/underscore.js"></script>
+   <script src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
+   <script src="lib/angular-google-maps.js"></script>
+
+   <script src="lib/chart.js"></script>
+   <script src="lib/angles.js"></script>
+
+   <!-- Load our JS scripts required for the main screen to load -->
+   <!-- For production these would be concatenated and minified -->
+   <script src="controllers/phonebook.js"></script>       <!-- First because this sets up the module -->
+   <script src="controllers/listController.js"></script>
+   <script src="controllers/aboutController.js"></script>
+   <script src="controllers/editController.js"></script>
+   <script src="controllers/loadDataController.js"></script>
+   <script src="controllers/metricsController.js"></script>
+   <script src="controllers/newController.js"></script>
+   <script src="controllers/viewController.js"></script>
+
+   <script src="services/dataFactory.js"></script>
+   <script src="services/forageFactory.js"></script>
+   <script src="services/httpFactory.js"></script>
+
+   <script src="js/directives.js"></script>
+   <script src="js/filters.js"></script>
+   <script src="services/chartFactory.js"></script>
+
+</body>
+
+</html>

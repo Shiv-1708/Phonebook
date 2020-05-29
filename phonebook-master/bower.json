@@ -1,0 +1,35 @@
+{
+   "name": "Phonebook",
+   "version": "0.0.0",
+   "homepage": "https://github.com/jshea/phonebook-angular",
+   "authors": [
+      "jshea <jimtshea@gmail.com>"
+   ],
+   "description": "A learning/training CRUD web single page application",
+   "main": "js/controller.js",
+   "license": "MIT",
+   "private": true,
+   "ignore": [
+      "**/.*",
+      "node_modules",
+      "bower_components",
+      "test",
+      "tests"
+   ],
+   "dependencies": {
+      "angular": "~1",
+      "angular-route": "~1",
+      "angular-animate": "~1",
+      "AngularJS-Toaster": "~0.4",
+      "angular-google-maps": "~1.2",
+      "localforage": "*",
+      "bootstrap": "~3",
+      "ng-grid": "~2",
+      "moment": "~1",
+      "angular-snap": "~1",
+      "snapjs": "~1",
+      "angles": "*",
+      "Chart.js": "~1",
+      "underscore": "~1.6"
+   }
+}
